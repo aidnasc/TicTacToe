@@ -29,13 +29,13 @@ public class jfmTela extends javax.swing.JFrame {
     }
     
     private void inicializar() throws IOException {
+        c.carregarArquivo();
         vez = 1;
         lblVitoriasJogador1.setText(c.getVitoriasJogador1()+"");
         lblVitoriasJogador2.setText(c.getVitoriasJogador2()+"");
         lblJogadorNaVez.setText("Jogador " + vez);
         btnJogarNovamente.setEnabled(false);
         desabilitarBotoesJogo();
-        //c.carregarArquivo();
     }
     
     private void resetarJogo() {
@@ -408,14 +408,14 @@ public class jfmTela extends javax.swing.JFrame {
 
     private void btnResetarScoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetarScoresActionPerformed
         c.resetarVitorias();
-        lblVitoriasJogador1.setText(c.getVitoriasJogador1()+"");
-        lblVitoriasJogador2.setText(c.getVitoriasJogador2()+"");
+        lblVitoriasJogador1.setText(String.valueOf(c.getVitoriasJogador1()));
+        lblVitoriasJogador2.setText(String.valueOf(c.getVitoriasJogador2()));
         
-//        try {
-//            c.salvarArquivo();
-//        } catch (IOException ex) {
-//            Logger.getLogger(jfmTela.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            c.salvarArquivo();
+        } catch (IOException ex) {
+            Logger.getLogger(jfmTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnResetarScoresActionPerformed
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed

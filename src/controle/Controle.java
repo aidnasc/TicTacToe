@@ -6,10 +6,14 @@
 package controle;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 /**
  *
@@ -112,29 +116,38 @@ public final class Controle {
     public void contabilizarVitoria(int vez) throws IOException {
         if (vez == 1) {
             adicionarVitoriaJogador1();
-            //salvarArquivo(); 
+            salvarArquivo(); 
         } else {
             adicionarVitoriaJogador2();
-            //salvarArquivo();
+            salvarArquivo();
         }   
     }
     
-//    public void carregarArquivo() throws FileNotFoundException, IOException {
-//        BufferedReader rd = new BufferedReader(new FileReader("vitorias.txt"));
-//        String linha;
-//        
-//        linha = rd.readLine(); // Lê a primeira linha
-//        vitoriasJogador1 = Integer.parseInt(linha);
-//        linha = rd.readLine(); // Lê a segunda linha
-//        vitoriasJogador2 = Integer.parseInt(linha);
-//        
-//        rd.close();   
-//    }
-//
-//    public void salvarArquivo() throws IOException {
-//        FileWriter arq = new FileWriter("vitorias.txt");
-//        arq.write(vitoriasJogador1);
-//        arq.write("\n");
-//        arq.write(vitoriasJogador2);
-//    }
+    public void carregarArquivo() throws FileNotFoundException, IOException {
+        BufferedReader rd = new BufferedReader(new FileReader("vitorias.txt"));
+        String linha;
+        
+        linha = rd.readLine(); // Lê a primeira linha
+                
+        if (linha == null) { // Se primeira linha nula, ainda não há vitórias
+            vitoriasJogador1 = vitoriasJogador2 = 0;
+        } else {
+            vitoriasJogador1 = Integer.parseInt(linha);
+            linha = rd.readLine(); // Lê a segunda linha
+            vitoriasJogador2 = Integer.parseInt(linha);
+        }
+              
+        rd.close();   
+    }
+
+    public void salvarArquivo() throws IOException {
+        OutputStream os = new FileOutputStream("vitorias.txt"); 
+        Writer wr = new OutputStreamWriter(os);
+        BufferedWriter br = new BufferedWriter(wr); 
+        
+        br.write(String.valueOf(vitoriasJogador1));
+        br.newLine();
+        br.write(String.valueOf(vitoriasJogador2));
+        br.close();
+    }
 }
